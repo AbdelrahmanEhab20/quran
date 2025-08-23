@@ -1,0 +1,20 @@
+# Exclude large audio files from Vercel deployment
+public/002.mp3
+public/*.mp3
+public/*.wav
+public/*.m4a
+
+# Exclude other large files
+*.mp3
+*.wav
+*.m4a
+*.avi
+*.mov
+*.mp4
+
+# Keep only essential files
+!public/favicon.svg
+!public/next.svg
+!public/vercel.svg
+!public/quran.png
+!public/QuranImageForVideo.jpg

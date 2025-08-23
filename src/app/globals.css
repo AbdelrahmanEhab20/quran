@@ -1,26 +1,357 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Custom audio player slider styling */
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.slider::-webkit-slider-track {
+  background: #e5e7eb;
+  height: 8px;
+  border-radius: 8px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background: linear-gradient(135deg, #10b981, #059669);
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.slider::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.slider::-moz-range-track {
+  background: #e5e7eb;
+  height: 8px;
+  border-radius: 8px;
+  border: none;
+}
+
+.slider::-moz-range-thumb {
+  background: linear-gradient(135deg, #10b981, #059669);
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.slider::-moz-range-thumb:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* RTL Volume Slider Support */
+.slider[dir="rtl"] {
+  direction: rtl;
+}
+
+.slider[dir="rtl"]::-webkit-slider-thumb {
+  transform: scaleX(-1);
+}
+
+.slider[dir="rtl"]::-moz-range-thumb {
+  transform: scaleX(-1);
+}
+
+.slider[dir="rtl"]::-ms-thumb {
+  transform: scaleX(-1);
+}
+
+/* Enhanced backdrop blur effects */
+.backdrop-blur-custom {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Custom gradient backgrounds */
+.bg-gradient-quran {
+  background: linear-gradient(
+    135deg,
+    #f0fdf4 0%,
+    #ecfdf5 25%,
+    #d1fae5 50%,
+    #a7f3d0 75%,
+    #6ee7b7 100%
+  );
+}
+
+.bg-gradient-quran-dark {
+  background: linear-gradient(
+    135deg,
+    #064e3b 0%,
+    #065f46 25%,
+    #047857 50%,
+    #059669 75%,
+    #10b981 100%
+  );
+}
+
+/* Enhanced shadows */
+.shadow-quran {
+  box-shadow: 0 25px 50px -12px rgba(16, 185, 129, 0.25);
+}
+
+.shadow-quran-lg {
+  box-shadow: 0 35px 60px -12px rgba(16, 185, 129, 0.3);
+}
+
+/* Custom animations */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(16, 185, 129, 0.6);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Smooth transitions for all elements */
+* {
+  transition: all 0.2s ease;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f0fdf4;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #10b981, #059669);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #059669, #047857);
+}
+
+/* RTL Support */
+[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+[dir="rtl"] .space-x-4 > * + * {
+  margin-left: 0;
+  margin-right: 1rem;
+}
+
+[dir="rtl"] .space-x-2 > * + * {
+  margin-left: 0;
+  margin-right: 0.5rem;
+}
+
+[dir="rtl"] .space-x-3 > * + * {
+  margin-left: 0;
+  margin-right: 0.75rem;
+}
+
+[dir="rtl"] .space-x-6 > * + * {
+  margin-left: 0;
+  margin-right: 1.5rem;
+}
+
+[dir="rtl"] .space-x-8 > * + * {
+  margin-left: 0;
+  margin-right: 2rem;
+}
+
+[dir="rtl"] .ml-1 {
+  margin-left: 0;
+  margin-right: 0.25rem;
+}
+
+[dir="rtl"] .ml-4 {
+  margin-left: 0;
+  margin-right: 1rem;
+}
+
+[dir="rtl"] .ml-6 {
+  margin-left: 0;
+  margin-right: 1.5rem;
+}
+
+[dir="rtl"] .mr-4 {
+  margin-right: 0;
+  margin-left: 1rem;
+}
+
+[dir="rtl"] .mr-6 {
+  margin-right: 0;
+  margin-left: 1.5rem;
+}
+
+[dir="rtl"] .mr-8 {
+  margin-right: 0;
+  margin-left: 2rem;
+}
+
+[dir="rtl"] .mr-12 {
+  margin-right: 0;
+  margin-left: 3rem;
+}
+
+[dir="rtl"] .mr-16 {
+  margin-right: 0;
+  margin-left: 4rem;
+}
+
+[dir="rtl"] .mr-20 {
+  margin-right: 0;
+  margin-left: 5rem;
+}
+
+[dir="rtl"] .mr-32 {
+  margin-right: 0;
+  margin-left: 8rem;
+}
+
+[dir="rtl"] .mr-1\/4 {
+  margin-right: 0;
+  margin-left: 25%;
+}
+
+[dir="rtl"] .mr-1\/3 {
+  margin-right: 0;
+  margin-left: 33.333333%;
+}
+
+[dir="rtl"] .left-10 {
+  left: auto;
+  right: 2.5rem;
+}
+
+[dir="rtl"] .left-20 {
+  left: auto;
+  right: 5rem;
+}
+
+[dir="rtl"] .left-1\/4 {
+  left: auto;
+  right: 25%;
+}
+
+[dir="rtl"] .right-20 {
+  right: auto;
+  left: 5rem;
+}
+
+[dir="rtl"] .right-32 {
+  right: auto;
+  left: 8rem;
+}
+
+[dir="rtl"] .right-1\/3 {
+  right: auto;
+  left: 33.333333%;
+}
+
+/* Arabic Font Classes */
+.font-arabic {
+  font-family: "Noto Naskh Arabic", serif;
+}
+
+/* RTL specific font adjustments */
+[dir="rtl"] .font-arabic {
+  font-family: "Noto Naskh Arabic", serif;
+  line-height: 1.8;
+}
+
+/* RTL hover effects */
+[dir="rtl"] .hover\:translate-x-2:hover {
+  transform: translateX(-0.5rem);
+}
+
+/* RTL responsive adjustments */
+@media (max-width: 768px) {
+  [dir="rtl"] .space-x-4 > * + * {
+    margin-right: 0.5rem;
+  }
+
+  [dir="rtl"] .space-x-8 > * + * {
+    margin-right: 1rem;
+  }
+}
+
+/* Enhanced responsive design */
+@media (max-width: 640px) {
+  .text-responsive-xs {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+  .text-responsive-sm {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .text-responsive-md {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+}
+
+@media (min-width: 1025px) {
+  .text-responsive-lg {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+}
+
+/* Custom focus states */
+.focus-ring:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px #10b981, 0 0 0 4px rgba(16, 185, 129, 0.1);
+}
+
+/* Enhanced button states */
+.btn-primary {
+  @apply bg-gradient-to-r from-green-600 to-emerald-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105;
+}
+
+.btn-secondary {
+  @apply bg-white/90 backdrop-blur-sm text-green-700 font-semibold py-3 px-6 rounded-xl shadow-lg border-2 border-green-200 hover:border-green-300 transition-all duration-300 hover:scale-105;
 }

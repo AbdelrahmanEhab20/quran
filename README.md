@@ -1,36 +1,105 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Quran Al-Kareem - Surah Al-Baqarah
 
-## Getting Started
+A beautiful, responsive Next.js website featuring Surah Al-Baqarah (The Cow) with a full-featured audio player. Built with TypeScript, Tailwind CSS, and modern web technologies.
 
-First, run the development server:
+## 🌟 Features
 
+- **Beautiful Design**: Modern, responsive design with Islamic aesthetic
+- **Audio Player**: Full-featured audio player with controls
+- **Surah Information**: Detailed information about Surah Al-Baqarah
+- **24/7 Availability**: Always accessible online
+- **Mobile Responsive**: Works perfectly on all devices
+- **TypeScript**: Built with type safety
+- **Tailwind CSS**: Modern, utility-first CSS framework
+
+## 🎵 Audio Player Features
+
+- **Play/Pause**: Full control over audio playback
+- **Progress Bar**: Visual progress indicator with seek functionality
+- **Volume Control**: Adjustable volume with mute option
+- **Skip Controls**: 30-second forward/backward skip
+- **Time Display**: Current time and total duration
+- **Auto-play Ready**: Prepared for user interaction
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18+ 
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <your-repo-url>
+cd quran
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Run the development server:
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Learn More
+### Building for Production
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run build
+npm start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🏗️ Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+├── app/
+│   ├── globals.css          # Global styles and custom CSS
+│   ├── layout.tsx           # Root layout with metadata
+│   └── page.tsx             # Main landing page
+├── components/
+│   └── AudioPlayer.tsx      # Custom audio player component
+```
 
-## Deploy on Vercel
+## 🎨 Technologies Used
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Next.js 15**: React framework with App Router
+- **TypeScript**: Type-safe JavaScript
+- **Tailwind CSS**: Utility-first CSS framework
+- **React Hooks**: State management and side effects
+- **HTML5 Audio API**: Audio playback functionality
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📱 Audio Source
+
+The website uses audio from [MP3Quran.net](https://www.mp3quran.net/) featuring the beautiful recitation of **Abdul Basit Abdul Samad**. The audio is streamed directly from their servers, ensuring high quality and reliability.
+
+## 🌐 Browser Compatibility
+
+- Chrome 60+
+- Firefox 55+
+- Safari 12+
+- Edge 79+
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📞 Support
+
+If you have any questions or need support, please open an issue on GitHub.
+
+---
+
+**Note**: This website is designed for educational and spiritual purposes. The audio content is sourced from MP3Quran.net and is used in accordance with their terms of service.
+
+**May Allah bless all who recite and listen to His words.** ☪️
