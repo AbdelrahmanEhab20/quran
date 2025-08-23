@@ -1,5 +1,12 @@
 # Quran Al-Kareem - Surah Al-Baqarah
 
+A modern, responsive Quran application featuring Surah Al-Baqarah with high-quality audio streaming from MongoDB Atlas.
+
+## 🚀 **Latest Deployment**
+- **Last Updated**: $(date)
+- **Status**: Ready for Production
+- **Audio Source**: MongoDB Atlas (GridFS)
+
 A beautiful, responsive Next.js website featuring Surah Al-Baqarah (The Cow) with a full-featured audio player. Built with TypeScript, Tailwind CSS, and modern web technologies.
 
 ## 🌟 Features
