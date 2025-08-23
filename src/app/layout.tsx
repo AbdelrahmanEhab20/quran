@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { LanguageProvider } from "@/contexts/LanguageContext";
-import DynamicMetadata from "@/components/DynamicMetadata";
+// import DynamicMetadata from "@/components/DynamicMetadata";
 
 // Default metadata (will be overridden by dynamic metadata)
 export const metadata: Metadata = {
@@ -55,7 +55,7 @@ export default function RootLayout({
       </head>
       <body className="antialiased">
         <LanguageProvider>
-          <DynamicMetadata />
+          {/* <DynamicMetadata /> */}
           {children}
         </LanguageProvider>
       </body>

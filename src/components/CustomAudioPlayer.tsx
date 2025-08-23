@@ -500,6 +500,9 @@ const CustomAudioPlayer = () => {
                         setDuration(audioRef.current.duration);
                     }
                 }}
+                onError={(e) => {
+                    console.error('Audio error:', e);
+                }}
             />
 
         </div>

@@ -1,38 +1,24 @@
 export const audioConfig = {
-    // Local development (working now)
-    local: {
-        surahAlBaqarah: '/002.mp3'
+    // MongoDB database (production)
+    database: {
+        surahAlBaqarah: '/api/audio/surah-al-baqarah'
     },
 
-    // External hosting (for production)
-    external: {
-        // Google Drive (may not work)
-        googleDrive: {
-            surahAlBaqarah: 'https://drive.google.com/file/d/14lrbqZ47OyuU-LLgbMlfhts4rR4AoOAO/preview'
-        },
-
-        // Backup working audio
-        backup: {
-            surahAlBaqarah: 'https://www.w3schools.com/html/horse.mp3'
-        },
-
-        // Working test audio (for demo)
-        test: {
-            surahAlBaqarah: 'https://www2.cs.uic.edu/~i101/SoundFiles/BabyElephantWalk60.wav'
-        }
-    },
-
-    // Current active source - USING EXTERNAL AUDIO FOR PRODUCTION
-    currentSource: 'external' as 'local' | 'external',
-    currentProvider: 'backup' as 'googleDrive' | 'test' | 'backup'
+    // Fallback sources (if database fails)
+    fallback: {
+        surahAlBaqarah: 'https://server8.mp3quran.net/husary/002.mp3'
+    }
 };
 
-export const getAudioUrl = (surah: keyof typeof audioConfig.local) => {
-    if (audioConfig.currentSource === 'local') {
-        return audioConfig.local[surah];
+// Current source - USING DATABASE BY DEFAULT
+export const currentSource = 'database' as 'database' | 'fallback';
+
+export const getAudioUrl = (surah: string) => {
+    if (currentSource === 'database') {
+        // Use relative URL to automatically use current host and port
+        return audioConfig.database[surah as keyof typeof audioConfig.database];
     }
 
-    // Use external source
-    const provider = audioConfig.currentProvider as keyof typeof audioConfig.external;
-    return audioConfig.external[provider][surah];
+    // Fallback to external source
+    return audioConfig.fallback[surah as keyof typeof audioConfig.fallback];
 };
