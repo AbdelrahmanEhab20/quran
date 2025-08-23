@@ -10,7 +10,7 @@ export const audioConfig = {
         googleDrive: {
             surahAlBaqarah: 'https://drive.google.com/file/d/14lrbqZ47OyuU-LLgbMlfhts4rR4AoOAO/preview'
         },
-        
+
         // Backup working audio
         backup: {
             surahAlBaqarah: 'https://www.w3schools.com/html/horse.mp3'
