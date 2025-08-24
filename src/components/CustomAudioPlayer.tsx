@@ -28,6 +28,8 @@ const CustomAudioPlayer = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [audioStatus, setAudioStatus] = useState('Loading...');
+    const [retryCount, setRetryCount] = useState(0);
+    const [currentAudioSource, setCurrentAudioSource] = useState<'database' | 'fallback'>('fallback');
 
     const audioRef = useRef<HTMLAudioElement>(null);
     const volumeSliderRef = useRef<HTMLDivElement>(null);
@@ -42,7 +44,7 @@ const CustomAudioPlayer = () => {
                 setDuration(audio.duration);
             }
         };
-        
+
         const handleLoadStart = () => {
             setIsLoading(true);
             setError(null);
@@ -72,9 +74,31 @@ const CustomAudioPlayer = () => {
 
         const handleError = (e: Event) => {
             setIsLoading(false);
-            setError('Failed to load audio');
+            const target = e.target as HTMLAudioElement;
+            let errorMessage = 'Failed to load audio';
+
+            if (target.error) {
+                switch (target.error.code) {
+                    case MediaError.MEDIA_ERR_ABORTED:
+                        errorMessage = 'Audio loading was aborted';
+                        break;
+                    case MediaError.MEDIA_ERR_NETWORK:
+                        errorMessage = 'Network error while loading audio';
+                        break;
+                    case MediaError.MEDIA_ERR_DECODE:
+                        errorMessage = 'Audio decoding error';
+                        break;
+                    case MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED:
+                        errorMessage = 'Audio format not supported';
+                        break;
+                    default:
+                        errorMessage = `Audio error: ${target.error.message}`;
+                }
+            }
+
+            setError(errorMessage);
             setAudioStatus('Error loading audio');
-            console.error('❌ Audio error:', e);
+            console.error('❌ Audio error:', e, 'Error details:', target.error);
         };
 
         const handleEnded = () => {
@@ -165,7 +189,13 @@ const CustomAudioPlayer = () => {
                 console.log('🎵 Play button clicked!');
                 console.log('🔊 Audio element:', audioRef.current);
                 console.log('📡 Audio source:', audioRef.current.src);
-                
+                console.log('🎯 Current audio state:', {
+                    readyState: audioRef.current.readyState,
+                    networkState: audioRef.current.networkState,
+                    error: audioRef.current.error,
+                    paused: audioRef.current.paused
+                });
+
                 if (isPlaying) {
                     audioRef.current.pause();
                     setIsPlaying(false);
@@ -181,13 +211,8 @@ const CustomAudioPlayer = () => {
                         navigator.mediaSession.playbackState = 'playing';
                     }
                 }
-                
+
                 console.log('▶️ Playing audio...');
-                console.log('🎯 Current audio state:', {
-                    readyState: audioRef.current.readyState,
-                    networkState: audioRef.current.networkState,
-                    error: audioRef.current.error
-                });
             } catch (error) {
                 console.error('Error playing audio:', error);
                 setError('Failed to play audio');
@@ -350,7 +375,12 @@ const CustomAudioPlayer = () => {
         if (audioRef.current) {
             setError(null);
             setIsLoading(true);
+            setAudioStatus('Reloading audio...');
+
+            // Simply reload the audio
             audioRef.current.load();
+
+            console.log('🔄 Reloading audio...');
         }
     };
 
@@ -390,7 +420,6 @@ const CustomAudioPlayer = () => {
 
                 {/* Audio Controls */}
                 <div className="p-4 sm:p-6 lg:p-8">
-                    {/* Status and Error Display */}
                     {error && (
                         <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl">
                             <div className="flex items-center justify-between">
@@ -553,10 +582,17 @@ const CustomAudioPlayer = () => {
                 preload="metadata"
                 playsInline
                 webkit-playsinline="true"
+                crossOrigin="anonymous"
+                onLoadStart={() => {
+                    console.log('🎵 Audio load started');
+                    setAudioStatus('Loading audio...');
+                }}
                 onLoadedMetadata={() => {
+                    console.log('📊 Audio metadata loaded');
                     if (audioRef.current) {
                         audioRef.current.volume = volume;
                         setDuration(audioRef.current.duration);
+                        setAudioStatus('Audio metadata loaded');
 
                         // Set media session metadata for background playback
                         if ('mediaSession' in navigator) {
@@ -572,18 +608,45 @@ const CustomAudioPlayer = () => {
                     }
                 }}
                 onLoadedData={() => {
+                    console.log('✅ Audio data loaded');
                     if (audioRef.current) {
                         setDuration(audioRef.current.duration);
+                        setAudioStatus('Ready to play');
                     }
                 }}
                 onCanPlay={() => {
+                    console.log('🎯 Audio can play');
                     if (audioRef.current) {
                         setDuration(audioRef.current.duration);
+                        setAudioStatus('Ready to play');
                     }
                 }}
                 onError={(e) => {
-                    console.error('Audio error:', e);
-                    setError('Failed to load audio file');
+                    console.error('❌ Audio error:', e);
+                    const target = e.target as HTMLAudioElement;
+                    let errorMessage = 'Failed to load audio file';
+
+                    if (target.error) {
+                        switch (target.error.code) {
+                            case MediaError.MEDIA_ERR_ABORTED:
+                                errorMessage = 'Audio loading was aborted';
+                                break;
+                            case MediaError.MEDIA_ERR_NETWORK:
+                                errorMessage = 'Network error while loading audio';
+                                break;
+                            case MediaError.MEDIA_ERR_DECODE:
+                                errorMessage = 'Audio decoding error';
+                                break;
+                            case MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED:
+                                errorMessage = 'Audio format not supported';
+                                break;
+                            default:
+                                errorMessage = `Audio error: ${target.error.message}`;
+                        }
+                    }
+
+                    setError(errorMessage);
+                    setAudioStatus('Error loading audio');
                 }}
             />
         </div>

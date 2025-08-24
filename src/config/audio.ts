@@ -10,15 +10,22 @@ export const audioConfig = {
     }
 };
 
-// Current source - USING DATABASE BY DEFAULT
-export const currentSource = 'database' as 'database' | 'fallback';
+// Current source - USING FALLBACK BY DEFAULT (much simpler!)
+export const currentSource = 'fallback' as 'database' | 'fallback';
 
 export const getAudioUrl = (surah: string) => {
-    if (currentSource === 'database') {
-        // Use relative URL to automatically use current host and port
-        return audioConfig.database[surah as keyof typeof audioConfig.database];
-    }
+    try {
+        // Use fallback source directly - no MongoDB complexity
+        const fallbackUrl = audioConfig.fallback[surah as keyof typeof audioConfig.fallback];
+        if (fallbackUrl) {
+            return fallbackUrl;
+        }
 
-    // Fallback to external source
-    return audioConfig.fallback[surah as keyof typeof audioConfig.fallback];
+        // If no fallback URL found, return the default one
+        return audioConfig.fallback.surahAlBaqarah;
+    } catch (error) {
+        console.error('Error getting audio URL:', error);
+        // Return fallback URL as last resort
+        return audioConfig.fallback.surahAlBaqarah;
+    }
 };
