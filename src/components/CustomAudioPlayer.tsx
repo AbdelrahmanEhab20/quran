@@ -13,7 +13,8 @@ import {
     IoVolumeMedium,
     IoVolumeLow,
     IoVolumeMute,
-    IoCheckmarkCircle
+    IoCheckmarkCircle,
+    IoReload
 } from 'react-icons/io5';
 
 const CustomAudioPlayer = () => {
@@ -24,8 +25,9 @@ const CustomAudioPlayer = () => {
     const [volume, setVolume] = useState(0.7);
     const [isMuted, setIsMuted] = useState(false);
     const [isBackgroundMode, setIsBackgroundMode] = useState(false);
-
-
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    const [audioStatus, setAudioStatus] = useState('Loading...');
 
     const audioRef = useRef<HTMLAudioElement>(null);
     const volumeSliderRef = useRef<HTMLDivElement>(null);
@@ -40,12 +42,41 @@ const CustomAudioPlayer = () => {
                 setDuration(audio.duration);
             }
         };
+        
+        const handleLoadStart = () => {
+            setIsLoading(true);
+            setError(null);
+            setAudioStatus('Loading audio...');
+            console.log('🎵 Audio loading started...');
+        };
+
+        const handleLoadedMetadata = () => {
+            updateDuration();
+            setAudioStatus('Audio metadata loaded');
+            console.log('📊 Audio metadata loaded, duration:', audio.duration);
+        };
+
         const handleLoadedData = () => {
             updateDuration();
+            setIsLoading(false);
+            setAudioStatus('Ready to play');
+            console.log('✅ Audio data loaded successfully');
         };
+
         const handleCanPlay = () => {
             updateDuration();
+            setIsLoading(false);
+            setAudioStatus('Ready to play');
+            console.log('🎯 Audio can play now');
         };
+
+        const handleError = (e: Event) => {
+            setIsLoading(false);
+            setError('Failed to load audio');
+            setAudioStatus('Error loading audio');
+            console.error('❌ Audio error:', e);
+        };
+
         const handleEnded = () => {
             setIsPlaying(false);
             // Auto-restart the audio after it finishes
@@ -89,11 +120,13 @@ const CustomAudioPlayer = () => {
         };
 
         audio.addEventListener('timeupdate', updateTime);
-        audio.addEventListener('loadedmetadata', updateDuration);
+        audio.addEventListener('loadedmetadata', handleLoadedMetadata);
         audio.addEventListener('loadeddata', handleLoadedData);
         audio.addEventListener('canplay', handleCanPlay);
         audio.addEventListener('ended', handleEnded);
         audio.addEventListener('volumechange', handleVolumeChange);
+        audio.addEventListener('loadstart', handleLoadStart);
+        audio.addEventListener('error', handleError);
 
         // Set initial volume
         audio.volume = volume;
@@ -106,11 +139,13 @@ const CustomAudioPlayer = () => {
 
         return () => {
             audio.removeEventListener('timeupdate', updateTime);
-            audio.removeEventListener('loadedmetadata', updateDuration);
+            audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
             audio.removeEventListener('loadeddata', handleLoadedData);
             audio.removeEventListener('canplay', handleCanPlay);
             audio.removeEventListener('ended', handleEnded);
             audio.removeEventListener('volumechange', handleVolumeChange);
+            audio.removeEventListener('loadstart', handleLoadStart);
+            audio.removeEventListener('error', handleError);
         };
     }, [volume]);
 
@@ -127,6 +162,10 @@ const CustomAudioPlayer = () => {
     const togglePlay = useCallback(async () => {
         if (audioRef.current) {
             try {
+                console.log('🎵 Play button clicked!');
+                console.log('🔊 Audio element:', audioRef.current);
+                console.log('📡 Audio source:', audioRef.current.src);
+                
                 if (isPlaying) {
                     audioRef.current.pause();
                     setIsPlaying(false);
@@ -142,8 +181,16 @@ const CustomAudioPlayer = () => {
                         navigator.mediaSession.playbackState = 'playing';
                     }
                 }
+                
+                console.log('▶️ Playing audio...');
+                console.log('🎯 Current audio state:', {
+                    readyState: audioRef.current.readyState,
+                    networkState: audioRef.current.networkState,
+                    error: audioRef.current.error
+                });
             } catch (error) {
                 console.error('Error playing audio:', error);
+                setError('Failed to play audio');
             }
         }
     }, [isPlaying]);
@@ -234,8 +281,6 @@ const CustomAudioPlayer = () => {
         return `${minutes}:${seconds.toString().padStart(2, '0')}`;
     };
 
-
-
     // Keyboard controls for audio
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -301,10 +346,16 @@ const CustomAudioPlayer = () => {
         return <IoVolumeHigh className="w-6 h-6" />;
     };
 
+    const retryAudio = () => {
+        if (audioRef.current) {
+            setError(null);
+            setIsLoading(true);
+            audioRef.current.load();
+        }
+    };
+
     return (
         <div className="relative max-w-5xl mx-auto">
-
-
             {/* Main Player Container */}
             <div className="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl border-2 border-green-200 overflow-hidden relative">
                 {/* Header Section */}
@@ -339,6 +390,35 @@ const CustomAudioPlayer = () => {
 
                 {/* Audio Controls */}
                 <div className="p-4 sm:p-6 lg:p-8">
+                    {/* Status and Error Display */}
+                    {error && (
+                        <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl">
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                                    <span className="text-red-700 font-medium">{error}</span>
+                                </div>
+                                <button
+                                    onClick={retryAudio}
+                                    className="flex items-center gap-2 px-3 py-2 bg-red-100 hover:bg-red-200 text-red-700 rounded-lg transition-colors"
+                                >
+                                    <IoReload className="w-4 h-4" />
+                                    Retry
+                                </button>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Loading Indicator */}
+                    {isLoading && (
+                        <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-xl">
+                            <div className="flex items-center gap-3">
+                                <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
+                                <span className="text-blue-700 font-medium">{audioStatus}</span>
+                            </div>
+                        </div>
+                    )}
+
                     {/* Progress Bar */}
                     <div className="mb-6 sm:mb-8">
                         <div className="relative">
@@ -373,10 +453,6 @@ const CustomAudioPlayer = () => {
                                     <span className="font-mono text-lg">{formatTime(duration)}</span>
                                 </div>
                             </div>
-
-
-
-
                         </div>
                     </div>
 
@@ -384,7 +460,8 @@ const CustomAudioPlayer = () => {
                     <div className="flex items-center justify-center gap-4 sm:gap-6 mb-6 sm:mb-8">
                         <button
                             onClick={skipBackward}
-                            className="p-3 sm:p-4 text-green-600 hover:text-green-800 transition-all duration-200 hover:scale-110 rounded-full hover:bg-green-50"
+                            disabled={isLoading}
+                            className="p-3 sm:p-4 text-green-600 hover:text-green-800 transition-all duration-200 hover:scale-110 rounded-full hover:bg-green-50 disabled:opacity-50 disabled:cursor-not-allowed"
                             title={t.videoPlayer.skipBackward}
                         >
                             <IoPlaySkipBack className={`w-6 h-6 sm:w-8 sm:h-8 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
@@ -392,7 +469,8 @@ const CustomAudioPlayer = () => {
 
                         <button
                             onClick={togglePlay}
-                            className="p-4 sm:p-6 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white rounded-full transition-all duration-300 hover:scale-110 shadow-xl hover:shadow-2xl transform hover:rotate-3"
+                            disabled={isLoading}
+                            className="p-4 sm:p-6 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white rounded-full transition-all duration-300 hover:scale-110 shadow-xl hover:shadow-2xl transform hover:rotate-3 disabled:opacity-50 disabled:cursor-not-allowed"
                             title={isPlaying ? t.videoPlayer.pause : t.videoPlayer.play}
                         >
                             {isPlaying ? (
@@ -404,7 +482,8 @@ const CustomAudioPlayer = () => {
 
                         <button
                             onClick={skipForward}
-                            className="p-3 sm:p-4 text-green-600 hover:text-green-800 transition-all duration-200 hover:scale-110 rounded-full hover:bg-green-50"
+                            disabled={isLoading}
+                            className="p-3 sm:p-4 text-green-600 hover:text-green-800 transition-all duration-200 hover:scale-110 rounded-full hover:bg-green-50 disabled:opacity-50 disabled:cursor-not-allowed"
                             title={t.videoPlayer.skipForward}
                         >
                             <IoPlaySkipForward className={`w-6 h-6 sm:w-8 sm:h-8 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
@@ -417,7 +496,8 @@ const CustomAudioPlayer = () => {
                         <div className="flex items-center gap-3" ref={volumeSliderRef}>
                             <button
                                 onClick={toggleMute}
-                                className="p-2 sm:p-3 text-green-600 hover:text-green-800 transition-colors duration-200 rounded-lg hover:bg-green-50"
+                                disabled={isLoading}
+                                className="p-2 sm:p-3 text-green-600 hover:text-green-800 transition-colors duration-200 rounded-lg hover:bg-green-50 disabled:opacity-50 disabled:cursor-not-allowed"
                                 title={isMuted ? t.videoPlayer.unmute : t.videoPlayer.mute}
                             >
                                 {getVolumeIcon()}
@@ -432,7 +512,8 @@ const CustomAudioPlayer = () => {
                                         step="0.01"
                                         value={isMuted ? 0 : volume}
                                         onChange={handleVolumeChange}
-                                        className="w-20 sm:w-24 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+                                        disabled={isLoading}
+                                        className="w-20 sm:w-24 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider disabled:opacity-50 disabled:cursor-not-allowed"
                                         style={{
                                             background: dir === 'rtl'
                                                 ? `linear-gradient(to left, #10b981 0%, #10b981 ${(isMuted ? 0 : volume) * 100}%, #e5e7eb ${(isMuted ? 0 : volume) * 100}%, #e5e7eb 100%)`
@@ -502,9 +583,9 @@ const CustomAudioPlayer = () => {
                 }}
                 onError={(e) => {
                     console.error('Audio error:', e);
+                    setError('Failed to load audio file');
                 }}
             />
-
         </div>
     );
 };

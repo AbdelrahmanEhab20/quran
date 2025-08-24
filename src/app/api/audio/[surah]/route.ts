@@ -14,12 +14,13 @@ export async function GET(
         const db = client.db(process.env.DB_NAME || 'quran_app');
         const bucket = new GridFSBucket(db);
 
-        // Find audio file by surah name in metadata
+        // Find audio file by surahName in metadata (your file has metadata.surahName: "surah-al-baqarah")
         const files = await bucket.find({
-            'metadata.surahName': surah
+            'metadata.surahName': 'surah-al-baqarah'
         }).toArray();
 
         if (files.length === 0) {
+            console.log('No audio file found for surah:', surah);
             await client.close();
             return NextResponse.json(
                 { error: 'Audio file not found' },
@@ -28,6 +29,7 @@ export async function GET(
         }
 
         const file = files[0];
+        console.log('Found audio file:', file.filename, 'Size:', file.length, 'Metadata:', file.metadata);
 
         // Create download stream
         const downloadStream = bucket.openDownloadStream(file._id);
@@ -43,7 +45,9 @@ export async function GET(
 
         await client.close();
 
-        // Return audio data with proper headers
+        console.log('Audio data loaded successfully, size:', audioData.length);
+
+        // Return audio data with proper headers using metadata
         return new NextResponse(new Uint8Array(audioData), {
             headers: {
                 'Content-Type': file.metadata?.mimeType || 'audio/mpeg',

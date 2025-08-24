@@ -3,9 +3,10 @@
 A modern, responsive Quran application featuring Surah Al-Baqarah with high-quality audio streaming from MongoDB Atlas.
 
 ## 🚀 **Latest Deployment**
-- **Last Updated**: $(date)
-- **Status**: Ready for Production
-- **Audio Source**: MongoDB Atlas (GridFS)
+- **Last Updated**: December 2024
+- **Status**: Production Ready with MongoDB Integration
+- **Audio Source**: MongoDB Atlas (GridFS) - 182MB High Quality Audio
+- **Live URL**: https://quran-kareem-surat-elbaqra.vercel.app/
 
 A beautiful, responsive Next.js website featuring Surah Al-Baqarah (The Cow) with a full-featured audio player. Built with TypeScript, Tailwind CSS, and modern web technologies.
 
@@ -18,6 +19,7 @@ A beautiful, responsive Next.js website featuring Surah Al-Baqarah (The Cow) wit
 - **Mobile Responsive**: Works perfectly on all devices
 - **TypeScript**: Built with type safety
 - **Tailwind CSS**: Modern, utility-first CSS framework
+- **MongoDB Integration**: High-quality audio streaming from MongoDB Atlas
 
 ## 🎵 Audio Player Features
 
@@ -25,8 +27,19 @@ A beautiful, responsive Next.js website featuring Surah Al-Baqarah (The Cow) wit
 - **Progress Bar**: Visual progress indicator with seek functionality
 - **Volume Control**: Adjustable volume with mute option
 - **Skip Controls**: 30-second forward/backward skip
-- **Time Display**: Current time and total duration
+- **Time Display**: Current time and total duration (3:19:17)
 - **Auto-play Ready**: Prepared for user interaction
+- **Error Handling**: Comprehensive error handling with retry functionality
+- **Loading States**: Visual feedback during audio loading
+
+## 🗄️ MongoDB Integration
+
+- **Database**: MongoDB Atlas (Cloud)
+- **Storage**: GridFS for large audio files (182MB)
+- **Audio Quality**: High-quality MP3 (191,343,486 bytes)
+- **Reciter**: Sheikh Mahmoud Khalil Al-Hussary
+- **Duration**: 3 hours, 19 minutes, 17 seconds
+- **Language**: Arabic
 
 ## 🚀 Getting Started
 
@@ -34,6 +47,15 @@ A beautiful, responsive Next.js website featuring Surah Al-Baqarah (The Cow) wit
 
 - Node.js 18+ 
 - npm or yarn
+- MongoDB Atlas account
+
+### Environment Variables
+
+Create a `.env.local` file:
+```bash
+MONGODB_URI=your_mongodb_atlas_connection_string
+DB_NAME=quran_app
+```
 
 ### Installation
 
@@ -67,11 +89,23 @@ npm start
 ```
 src/
 ├── app/
-│   ├── globals.css          # Global styles and custom CSS
-│   ├── layout.tsx           # Root layout with metadata
-│   └── page.tsx             # Main landing page
+│   ├── api/audio/[surah]/route.ts  # MongoDB audio API
+│   ├── globals.css                  # Global styles
+│   ├── layout.tsx                   # Root layout
+│   └── page.tsx                     # Main page
 ├── components/
-│   └── AudioPlayer.tsx      # Custom audio player component
+│   ├── CustomAudioPlayer.tsx        # Audio player component
+│   ├── Navbar.tsx                   # Navigation
+│   ├── Hero.tsx                     # Hero section
+│   ├── Footer.tsx                   # Footer
+│   └── LanguageToggle.tsx           # Language switcher
+├── config/
+│   ├── audio.ts                     # Audio configuration
+│   └── database.ts                  # Database connection
+├── contexts/
+│   └── LanguageContext.tsx          # Language management
+└── data/
+    └── languages.ts                 # Multi-language support
 ```
 
 ## 🎨 Technologies Used
@@ -79,12 +113,10 @@ src/
 - **Next.js 15**: React framework with App Router
 - **TypeScript**: Type-safe JavaScript
 - **Tailwind CSS**: Utility-first CSS framework
+- **MongoDB**: Database with GridFS for large files
 - **React Hooks**: State management and side effects
 - **HTML5 Audio API**: Audio playback functionality
-
-## 📱 Audio Source
-
-The website uses audio from [MP3Quran.net](https://www.mp3quran.net/) featuring the beautiful recitation of **Abdul Basit Abdul Samad**. The audio is streamed directly from their servers, ensuring high quality and reliability.
+- **React Icons**: Modern icon library
 
 ## 🌐 Browser Compatibility
 
@@ -107,6 +139,6 @@ If you have any questions or need support, please open an issue on GitHub.
 
 ---
 
-**Note**: This website is designed for educational and spiritual purposes. The audio content is sourced from MP3Quran.net and is used in accordance with their terms of service.
+**Note**: This website is designed for educational and spiritual purposes. The audio content is sourced from high-quality recordings and is used in accordance with appropriate terms of service.
 
 **May Allah bless all who recite and listen to His words.** ☪️
