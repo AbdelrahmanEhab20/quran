@@ -1,9 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { LanguageProvider } from "@/contexts/LanguageContext";
-// import DynamicMetadata from "@/components/DynamicMetadata";
 
-// Default metadata (will be overridden by dynamic metadata)
 export const metadata: Metadata = {
   title: "Quran Kareem - Surah Al-Baqarah | القرآن الكريم - سورة البقرة",
   description: "Watch and listen to Surah Al-Baqarah (The Cow) from the Holy Quran with beautiful recitation by Sheikh Mahmoud Khalil Al-Hussary. Available 24/7 with HD video and crystal clear audio.",
@@ -55,7 +53,6 @@ export default function RootLayout({
       </head>
       <body className="antialiased">
         <LanguageProvider>
-          {/* <DynamicMetadata /> */}
           {children}
         </LanguageProvider>
       </body>

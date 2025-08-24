@@ -23,9 +23,6 @@ export interface LanguageData {
     videoSection: {
         title: string;
         subtitle: string;
-        playButton: string;
-        reciter: string;
-        reciterArabic: string;
         features: {
             hdQuality: string;
             hdQualityDesc: string;
@@ -33,12 +30,6 @@ export interface LanguageData {
             perfectAudioDesc: string;
             allDevices: string;
             allDevicesDesc: string;
-        };
-        videoInfo: {
-            highQuality: string;
-            arabicText: string;
-            beautifulRecitation: string;
-            reciterInfo: string;
         };
         aboutRecitation: {
             title: string;
@@ -71,29 +62,9 @@ export interface LanguageData {
             about: string;
             contact: string;
         };
-        contactInfo: {
-            title: string;
-            email: string;
-            website: string;
-            phone: string;
-            availability: string;
-        };
         copyright: string;
         blessing: string;
         blessingTranslation: string;
-    };
-    videoPlayer: {
-        title: string;
-        play: string;
-        pause: string;
-        skipForward: string;
-        skipBackward: string;
-        mute: string;
-        unmute: string;
-        volume: string;
-        nowPlaying: string;
-        readyToPlay: string;
-        videoSource: string;
     };
 }
 
@@ -121,30 +92,21 @@ export const languages: Record<string, LanguageData> = {
             learnButton: "📖 Learn More",
         },
         videoSection: {
-            title: "Listen to Surah Al-Baqarah",
-            subtitle: "Beautiful recitation by Sheikh Mahmoud Khalil Al Hussary with the Holy Quran image",
-            playButton: "Play",
-            reciter: "Sheikh Mahmoud Khalil Al Hussary",
-            reciterArabic: "محمود خليل الحصري",
+            title: "Watch Surah Al-Baqarah",
+            subtitle: "Beautiful recitation by Sheikh Mahmoud Khalil Al Hussary with the Holy Quran",
             features: {
-                hdQuality: "HD Audio Quality",
-                hdQualityDesc: "Crystal clear audio with perfect pronunciation",
+                hdQuality: "HD Video Quality",
+                hdQualityDesc: "Crystal clear video with perfect audio",
                 perfectAudio: "Perfect Recitation",
                 perfectAudioDesc: "Professional recording with perfect Tajweed rules",
                 allDevices: "All Devices",
                 allDevicesDesc: "Works perfectly on desktop, tablet, and mobile",
             },
-            videoInfo: {
-                highQuality: "High Quality Audio",
-                arabicText: "Perfect Arabic Pronunciation",
-                beautifulRecitation: "Beautiful Recitation",
-                reciterInfo: "Recited by Sheikh Mahmoud Khalil Al Hussary • Duration: Complete Surah • Available 24/7",
-            },
             aboutRecitation: {
                 title: "About This Recitation",
                 description: "This beautiful recitation of Surah Al-Baqarah is performed by the renowned Sheikh Mahmoud Khalil Al Hussary, one of the most respected and beloved reciters of the Holy Quran. His distinctive voice and perfect pronunciation make this recitation a spiritual experience for listeners worldwide.",
                 features: [
-                    "High Quality Audio Recording",
+                    "High Quality Video Recording",
                     "Perfect Tajweed Rules",
                     "Complete Surah (286 Verses)"
                 ]
@@ -181,29 +143,9 @@ export const languages: Record<string, LanguageData> = {
                 about: "📖 About",
                 contact: "📞 Contact",
             },
-            contactInfo: {
-                title: "Contact Info",
-                email: "info@qurankareem.com",
-                website: "www.qurankareem.com",
-                phone: "+1 (555) 123-4567",
-                availability: "Available 24/7",
-            },
             copyright: "© 2024 Quran Kareem. All rights reserved.",
             blessing: "بارك الله فيمن يقرأ ويستمع إلى كلامه",
             blessingTranslation: "May Allah bless all who recite and listen to His words.",
-        },
-        videoPlayer: {
-            title: "Surah Al-Baqarah Audio",
-            play: "Play",
-            pause: "Pause",
-            skipForward: "Skip 30 seconds forward",
-            skipBackward: "Skip 30 seconds backward",
-            mute: "Mute",
-            unmute: "Unmute",
-            volume: "Volume",
-            nowPlaying: "Now Playing: Surah Al-Baqarah",
-            readyToPlay: "Ready to play audio",
-            videoSource: "Sheikh Mahmoud Khalil Al Hussary",
         },
     },
     ar: {
@@ -229,30 +171,21 @@ export const languages: Record<string, LanguageData> = {
             learnButton: "📖 اعرف المزيد",
         },
         videoSection: {
-            title: "استمع إلى سورة البقرة",
-            subtitle: "تلاوة جميلة للشيخ محمود خليل الحصري مع صورة القرآن الكريم",
-            playButton: "تشغيل",
-            reciter: "Sheikh Mahmoud Khalil Al Hussary",
-            reciterArabic: "محمود خليل الحصري",
+            title: "شاهد سورة البقرة",
+            subtitle: "تلاوة جميلة للشيخ محمود خليل الحصري مع القرآن الكريم",
             features: {
-                hdQuality: "جودة صوت عالية",
-                hdQualityDesc: "صوت واضح مع نطق مثالي",
+                hdQuality: "جودة فيديو عالية",
+                hdQualityDesc: "فيديو واضح مع صوت مثالي",
                 perfectAudio: "تلاوة مثالية",
                 perfectAudioDesc: "تسجيل احترافي مع قواعد تجويد مثالية",
                 allDevices: "جميع الأجهزة",
                 allDevicesDesc: "يعمل بشكل مثالي على الكمبيوتر والتابلت والجوال",
             },
-            videoInfo: {
-                highQuality: "صوت عالي الجودة",
-                arabicText: "نطق عربي مثالي",
-                beautifulRecitation: "تلاوة جميلة",
-                reciterInfo: "تلاوة الشيخ محمود خليل الحصري • المدة: السورة كاملة • متاح 24/7",
-            },
             aboutRecitation: {
                 title: "حول هذه التلاوة",
                 description: "هذه التلاوة الجميلة لسورة البقرة يؤديها الشيخ محمود خليل الحصري، أحد أكثر قراء القرآن الكريم احتراماً وحباً. صوته المميز ونطقه المثالي يجعلان هذه التلاوة تجربة روحية للمستمعين في جميع أنحاء العالم.",
                 features: [
-                    "تسجيل صوتي عالي الجودة",
+                    "تسجيل فيديو عالي الجودة",
                     "قواعد تجويد مثالية",
                     "السورة كاملة (286 آية)"
                 ]
@@ -289,29 +222,9 @@ export const languages: Record<string, LanguageData> = {
                 about: "📖 حول",
                 contact: "📞 اتصل بنا",
             },
-            contactInfo: {
-                title: "معلومات الاتصال",
-                email: "info@qurankareem.com",
-                website: "www.qurankareem.com",
-                phone: "+1 (555) 123-4567",
-                availability: "متاح 24/7",
-            },
             copyright: "© 2024 القرآن الكريم. جميع الحقوق محفوظة.",
             blessing: "بارك الله فيمن يقرأ ويستمع إلى كلامه",
             blessingTranslation: "May Allah bless all who recite and listen to His words.",
-        },
-        videoPlayer: {
-            title: "صوت سورة البقرة",
-            play: "تشغيل",
-            pause: "إيقاف مؤقت",
-            skipForward: "تقدم 30 ثانية",
-            skipBackward: "تراجع 30 ثانية",
-            mute: "كتم الصوت",
-            unmute: "إلغاء كتم الصوت",
-            volume: "مستوى الصوت",
-            nowPlaying: "يعمل الآن: سورة البقرة",
-            readyToPlay: "جاهز لتشغيل الصوت",
-            videoSource: "الشيخ محمود خليل الحصري",
         },
     },
 };

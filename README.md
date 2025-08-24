@@ -1,78 +1,51 @@
-# Quran Al-Kareem - Surah Al-Baqarah
+# Quran Kareem - Surah Al-Baqarah
 
-A modern, responsive Quran application featuring Surah Al-Baqarah with high-quality audio streaming from MongoDB Atlas.
+A beautiful, responsive website for watching and learning about Surah Al-Baqarah (The Cow) from the Holy Quran. Features an embedded YouTube video with beautiful recitation by Sheikh Mahmoud Khalil Al-Hussary.
 
-## 🚀 **Latest Deployment**
-- **Last Updated**: December 2024
-- **Status**: Production Ready with MongoDB Integration
-- **Audio Source**: MongoDB Atlas (GridFS) - 182MB High Quality Audio
-- **Live URL**: https://quran-kareem-surat-elbaqra.vercel.app/
+## Features
 
-A beautiful, responsive Next.js website featuring Surah Al-Baqarah (The Cow) with a full-featured audio player. Built with TypeScript, Tailwind CSS, and modern web technologies.
+- 🌍 **Bilingual Support**: Full Arabic and English language support with RTL/LTR layout
+- 🎬 **Embedded Video**: High-quality YouTube video of Surah Al-Baqarah recitation
+- 📱 **Responsive Design**: Optimized for all devices (desktop, tablet, mobile)
+- 🎨 **Modern UI**: Beautiful gradient design with smooth animations
+- ♿ **Accessibility**: Proper ARIA labels and keyboard navigation
+- 🌙 **Islamic Design**: Elegant Islamic-themed color scheme and typography
 
-## 🌟 Features
+## Technology Stack
 
-- **Beautiful Design**: Modern, responsive design with Islamic aesthetic
-- **Audio Player**: Full-featured audio player with controls
-- **Surah Information**: Detailed information about Surah Al-Baqarah
-- **24/7 Availability**: Always accessible online
-- **Mobile Responsive**: Works perfectly on all devices
-- **TypeScript**: Built with type safety
-- **Tailwind CSS**: Modern, utility-first CSS framework
-- **MongoDB Integration**: High-quality audio streaming from MongoDB Atlas
+- **Frontend**: Next.js 15, React 19, TypeScript
+- **Styling**: Tailwind CSS with custom animations
+- **Icons**: React Icons
+- **Fonts**: Noto Naskh Arabic for Arabic text
+- **Deployment**: Ready for Vercel deployment
 
-## 🎵 Audio Player Features
-
-- **Play/Pause**: Full control over audio playback
-- **Progress Bar**: Visual progress indicator with seek functionality
-- **Volume Control**: Adjustable volume with mute option
-- **Skip Controls**: 30-second forward/backward skip
-- **Time Display**: Current time and total duration (3:19:17)
-- **Auto-play Ready**: Prepared for user interaction
-- **Error Handling**: Comprehensive error handling with retry functionality
-- **Loading States**: Visual feedback during audio loading
-
-## 🗄️ MongoDB Integration
-
-- **Database**: MongoDB Atlas (Cloud)
-- **Storage**: GridFS for large audio files (182MB)
-- **Audio Quality**: High-quality MP3 (191,343,486 bytes)
-- **Reciter**: Sheikh Mahmoud Khalil Al-Hussary
-- **Duration**: 3 hours, 19 minutes, 17 seconds
-- **Language**: Arabic
-
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
 - Node.js 18+ 
 - npm or yarn
-- MongoDB Atlas account
-
-### Environment Variables
-
-Create a `.env.local` file:
-```bash
-MONGODB_URI=your_mongodb_atlas_connection_string
-DB_NAME=quran_app
-```
 
 ### Installation
 
 1. Clone the repository:
 ```bash
-git clone <your-repo-url>
+git clone <repository-url>
 cd quran
 ```
 
 2. Install dependencies:
 ```bash
 npm install
+# or
+yarn install
 ```
 
 3. Run the development server:
 ```bash
 npm run dev
+# or
+yarn dev
 ```
 
 4. Open [http://localhost:3000](http://localhost:3000) in your browser.
@@ -84,61 +57,85 @@ npm run build
 npm start
 ```
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
-src/
-├── app/
-│   ├── api/audio/[surah]/route.ts  # MongoDB audio API
-│   ├── globals.css                  # Global styles
-│   ├── layout.tsx                   # Root layout
-│   └── page.tsx                     # Main page
-├── components/
-│   ├── CustomAudioPlayer.tsx        # Audio player component
-│   ├── Navbar.tsx                   # Navigation
-│   ├── Hero.tsx                     # Hero section
-│   ├── Footer.tsx                   # Footer
-│   └── LanguageToggle.tsx           # Language switcher
-├── config/
-│   ├── audio.ts                     # Audio configuration
-│   └── database.ts                  # Database connection
-├── contexts/
-│   └── LanguageContext.tsx          # Language management
-└── data/
-    └── languages.ts                 # Multi-language support
+quran/
+├── src/
+│   ├── app/                 # Next.js app directory
+│   │   ├── layout.tsx      # Root layout with language provider
+│   │   ├── page.tsx        # Main page component
+│   │   └── globals.css     # Global styles
+│   ├── components/          # React components
+│   │   ├── Navbar.tsx      # Navigation bar
+│   │   ├── Hero.tsx        # Hero section
+│   │   ├── Footer.tsx      # Footer component
+│   │   └── LanguageToggle.tsx # Language switcher
+│   ├── contexts/            # React contexts
+│   │   └── LanguageContext.tsx # Language management
+│   └── data/               # Static data
+│       └── languages.ts    # Bilingual content
+├── public/                  # Static assets
+│   ├── quran.png          # Quran logo
+│   └── QuranImageForVideo.jpg # Background image
+└── package.json            # Dependencies and scripts
 ```
 
-## 🎨 Technologies Used
+## Language System
 
-- **Next.js 15**: React framework with App Router
-- **TypeScript**: Type-safe JavaScript
-- **Tailwind CSS**: Utility-first CSS framework
-- **MongoDB**: Database with GridFS for large files
-- **React Hooks**: State management and side effects
-- **HTML5 Audio API**: Audio playback functionality
-- **React Icons**: Modern icon library
+The website supports both Arabic (RTL) and English (LTR) languages:
 
-## 🌐 Browser Compatibility
+- **Arabic**: Right-to-left layout with Noto Naskh Arabic font
+- **English**: Left-to-right layout with system fonts
+- **Automatic Detection**: Detects browser language preference
+- **Persistent Storage**: Remembers user's language choice
 
-- Chrome 60+
-- Firefox 55+
-- Safari 12+
-- Edge 79+
+## Customization
 
-## 📄 License
+### Adding New Languages
+
+1. Add language data to `src/data/languages.ts`
+2. Implement all required translations
+3. The system automatically supports the new language
+
+### Changing the Video
+
+Update the YouTube embed URL in `src/app/page.tsx`:
+
+```tsx
+<iframe
+  src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+  // ... other props
+/>
+```
+
+### Styling
+
+- Main styles are in `src/app/globals.css`
+- Component-specific styles use Tailwind CSS classes
+- RTL support is built-in with CSS custom properties
+
+## Deployment
+
+The project is optimized for Vercel deployment:
+
+1. Push your code to GitHub
+2. Connect your repository to Vercel
+3. Deploy automatically on every push
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+## License
 
 This project is open source and available under the [MIT License](LICENSE).
 
-## 🤝 Contributing
+## Acknowledgments
 
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## 📞 Support
-
-If you have any questions or need support, please open an issue on GitHub.
-
----
-
-**Note**: This website is designed for educational and spiritual purposes. The audio content is sourced from high-quality recordings and is used in accordance with appropriate terms of service.
-
-**May Allah bless all who recite and listen to His words.** ☪️
+- Sheikh Mahmoud Khalil Al-Hussary for the beautiful recitation
+- The Islamic community for inspiration and support
+- Next.js and React teams for the excellent framework

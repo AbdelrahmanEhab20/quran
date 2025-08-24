@@ -11,10 +11,9 @@ Contains all the text content in both languages, organized by component and sect
 The language data is organized hierarchically:
 - `navbar` - Navigation menu items
 - `hero` - Hero section content
-- `videoSection` - Video player section
+- `videoSection` - Video section content
 - `about` - About section content
 - `footer` - Footer content
-- `videoPlayer` - Video player controls and labels
 
 ## Usage
 
@@ -56,3 +55,6 @@ Arabic language automatically enables RTL (right-to-left) layout:
 
 ## Language Toggle
 The language toggle button is located in the navbar and allows users to switch between Arabic and English. The selection is saved in localStorage and persists across sessions.
+
+## Video Section
+The video section now uses an embedded YouTube video instead of audio functionality, making it simpler and more reliable for users.

@@ -37,15 +37,12 @@ const Navbar = () => {
                     {/* Desktop Navigation */}
                     <div className="hidden lg:flex items-center gap-10 justify-center space-x-8 xl:space-x-10">
                         <a href="#home" className="text-green-700 hover:text-green-900 font-semibold text-lg xl:text-xl transition-all duration-200 hover:scale-105 flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-green-50">
-
                             {t.navbar.home}
                         </a>
                         <a href="#surah" className="text-green-700 hover:text-green-900 font-semibold text-lg xl:text-xl transition-all duration-200 hover:scale-105 flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-green-50">
-
                             {t.navbar.surah}
                         </a>
                         <a href="#about" className="text-green-700 hover:text-green-900 font-semibold text-lg xl:text-xl transition-all duration-200 hover:scale-105 flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-green-50">
-
                             {t.navbar.about}
                         </a>
                     </div>

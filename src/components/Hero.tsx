@@ -7,8 +7,6 @@ const Hero = () => {
 
     return (
         <section id="home" className="relative bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 py-20 sm:py-24 lg:py-32 overflow-hidden" dir={dir}>
-
-
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-20">
                 <div className="absolute top-16 sm:top-20 left-16 sm:left-20 w-20 h-20 sm:w-24 sm:h-24 border-4 border-green-300 rounded-full"></div>
